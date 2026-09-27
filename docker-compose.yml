@@ -1,0 +1,37 @@
+services:
+  stt:
+    build:
+      context: .
+    image: diana-ai/german-stt:latest
+    container_name: diana-german-stt
+
+    runtime: nvidia
+
+    ports:
+      - "8004:8000"
+
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - MODELS_DIR=/models
+      - ASR_MODEL_ID=Systran/faster-whisper-large-v3
+      - ASR_COMPUTE_TYPE=int8_float16
+      - PRELOAD_MODEL=1
+
+    volumes:
+      - german_stt_models:/models
+      - ./output:/output
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    restart: unless-stopped
+
+
+volumes:
+  german_stt_models:
+    name: diana_german_stt_models

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>German STT</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>German STT</h1>
+    <p class="sub">Upload German audio, then listen with synced subtitles.</p>
+
+    <form id="form">
+      <input type="file" id="file" accept=".mp3,.wav,.m4a,audio/mpeg,audio/wav,audio/x-wav,audio/mp4,audio/x-m4a" required>
+      <button type="submit" id="submit">Transcribe</button>
+    </form>
+
+    <div id="status" class="status" hidden>
+      <progress id="progress" max="100"></progress>
+      <span id="status-text"></span>
+    </div>
+
+    <p id="error" class="error" hidden></p>
+
+    <section id="result" hidden>
+      <div class="toolbar">
+        <dl class="meta">
+          <div><dt>Language</dt><dd id="language"></dd></div>
+          <div><dt>Duration</dt><dd id="duration"></dd></div>
+        </dl>
+        <button type="button" id="download" class="secondary">Download SRT</button>
+      </div>
+
+      <div class="subtitle" aria-live="polite">
+        <p id="subtitle-text"></p>
+      </div>
+
+      <audio id="player" controls preload="auto"></audio>
+
+      <h2>Transcript</h2>
+      <ol id="timeline" class="timeline"></ol>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
